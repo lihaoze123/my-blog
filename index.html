@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lusitana:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked@4.3.0/marked.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <title>个人主页</title>
+    <style>
+      .markdown h1 {
+        font-size: 1.3rem;
+        font-weight: bold;
+        margin-top: 1rem;
+        margin-bottom: 0.5rem;
+      }
+      .markdown h2 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        margin-top: 1rem;
+        margin-bottom: 0.5rem;
+      }
+      .markdown h3 {
+        font-size: 0.9rem;
+        font-weight: bold;
+        margin-top: 1rem;
+        margin-bottom: 0.5rem;
+      }
+      .markdown p {
+        margin-bottom: 0.75rem;
+      }
+      .markdown ul,
+      .markdown ol {
+        margin-left: 1.5rem;
+        margin-bottom: 0.75rem;
+      }
+      .markdown ul {
+        list-style-type: disc;
+      }
+      .markdown ol {
+        list-style-type: decimal;
+      }
+      .markdown code {
+        background-color: #f0f0f0;
+        padding: 0.1rem 0.3rem;
+        border-radius: 0.25rem;
+        font-family: monospace;
+      }
+      .markdown pre {
+        background-color: #f0f0f0;
+        padding: 1rem;
+        border-radius: 0.25rem;
+        overflow-x: auto;
+        margin-bottom: 0.75rem;
+      }
+      .markdown pre code {
+        background-color: transparent;
+        padding: 0;
+      }
+      .markdown blockquote {
+        border-left: 4px solid #e2e8f0;
+        padding-left: 1rem;
+        margin-left: 0;
+        margin-bottom: 0.75rem;
+        color: #4a5568;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-100">
+    <div id="root"></div>
+    <script type="text/babel">
+      marked.setOptions({
+        highlight: function (code, lang) {
+          return code;
+        },
+      });
+
+      const renderer = new marked.Renderer();
+      const originalParagraph = renderer.paragraph.bind(renderer);
+
+      renderer.paragraph = function (text) {
+        return originalParagraph(text);
+      };
+
+      marked.use({ renderer });
+
+      function Markdown({ children }) {
+        const containerRef = React.useRef(null);
+
+        React.useEffect(() => {
+          if (containerRef.current) {
+            containerRef.current.innerHTML = marked.parse(children);
+
+            renderMathInElement(containerRef.current, {
+              delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true },
+              ],
+              throwOnError: false,
+            });
+          }
+        }, [children]);
+
+        return <div className="markdown" ref={containerRef}></div>;
+      }
+
+      function Card(props) {
+        return (
+          <div className="container mx-auto my-8 p-4 bg-white rounded shadow-md">
+            <h2 className="text-xl font-bold mb-4 text-sky-700">
+              {props.title}
+            </h2>
+            {props.children}
+          </div>
+        );
+      }
+
+      function Header() {
+        return (
+          <div className="bg-sky-700 text-white p-4 shadow-md">
+            <div className="container mx-auto">
+              <h1
+                className="text-2xl font-bold font-serif"
+                style={{ fontFamily: "Lusitana, serif" }}
+              >
+                Li Haoze's website
+              </h1>
+              <div className="flex space-x-4 mt-2">
+                <a href="#" className="hover:underline">
+                  首页
+                </a>
+                <a href="#" className="hover:underline">
+                  关于我
+                </a>
+                <a href="#" className="hover:underline">
+                  随笔
+                </a>
+                <a href="#" className="hover:underline">
+                  留言板
+                </a>
+              </div>
+            </div>
+          </div>
+        );
+      }
+
+      function Introduction() {
+        return (
+          <Card title="个人简介">
+            <div className="flex flex-col md:flex-row">
+              <div className="md:w-1/4 mb-4 md:mb-0">
+                <div className="w-40 h-40 bg-gray-300 rounded-full mx-auto">
+                  <img
+                    src="https://avatars.githubusercontent.com/u/35329574?v=4"
+                    alt="头像"
+                    className="w-full h-full object-cover rounded-full"
+                  />
+                </div>
+              </div>
+              <div className="md:w-3/4 md:pl-4">
+                <p className="mb-2">
+                  <span className="font-bold">姓名：</span>李昊泽
+                </p>
+                <p className="mb-2">
+                  <span className="font-bold">年龄：</span>18岁
+                </p>
+                <p className="mb-2">
+                  <span className="font-bold">职业：</span>学生
+                </p>
+                <p className="mb-2">
+                  <span className="font-bold">爱好：</span>编程、算法
+                </p>
+                <p className="mb-2">
+                  <span className="font-bold">个人介绍：</span>
+                  我是一名热爱算法和编程的爱好者，目前在进行 XCPC
+                  算法竞赛的学习，精通C++，熟悉前端技术，喜欢研究新技术，欢迎一起探索！
+                </p>
+              </div>
+            </div>
+          </Card>
+        );
+      }
+
+      function Article() {
+        const articles = [
+          {
+            title: "连通性问题学习笔记",
+            date: "2025-02-28",
+            content: `
+# 图论中的连通性问题
+
+## 有向图的强连通分量
+
+在解决有向图问题时，通过求解强连通分量并进行缩点，我们可以将原图转化为一个有向无环图(DAG)。这样就能利用拓扑排序的性质，将原问题转化为在 DAG 上求解的问题。
+
+### 基本概念
+
+1. **强连通**：在有向图中，如果两个顶点之间存在互相可达的路径，则称这两个顶点是强连通的。
+2. **强连通图**：如果有向图中任意两点都是强连通的，则称该图为强连通图。
+3. **强连通分量**：有向图中的极大强连通子图。
+
+### DFS 生成树
+
+在深度优先搜索(DFS)过程中，遍历形成的树称为DFS生成树。其中的边可以分为四类：
+
+1. **树边**：DFS遍历时实际经过的边
+2. **前向边**：从祖先指向后代的非树边
+3. **返祖边**：从后代指向祖先的边
+4. **横叉边**：连接不同子树中节点的边
+
+![四种边的示意图](https://picgo-chumeng.oss-cn-beijing.aliyuncs.com/四种边的示意图.svg)
+
+判断节点是否属于同一强连通分量有两种情况：
+1. 通过一条返祖边直接到达祖先节点
+2. 通过横叉边再加返祖边间接到达祖先节点
+
+简单来说，如果从一个节点出发可以到达祖先节点，那么这个节点和祖先节点就在同一个强连通分量中。 
+`,
+          },
+          {
+            title: "单源最短路径算法正确性的证明",
+            date: "2025-02-28",
+            content: `
+## Dijkstra 算法
+
+### 证明
+
+**循环不变式** 在算法中 $\\textbf{while}$ 语句的每次迭代开始前，对于加入 $S$ 的顶点 $u$，有 $u.d = \delta(s, u)$。其中 $\delta(s, u)$ 表示从源点 $s$ 到顶点 $u$ 的最短路径长度。
+
+1. 初始时，$S = \\varnothing$，所以循环不变式直接成立。
+2. 利用反证法证明：
+    1. 假设结点 $u$ 是第一个满足 $u.d \\neq \\delta(s, u)$ 的结点，假设在 $s$ 到 $u$ 的最短路径上存在一个结点 $y \\in V-S$，它的前驱中有 $x \\in S$，由于 $x.d = \\delta(s, x)$，边 $(x, y)$ 会被松弛，所以 $y.d$ 会收敛为 $y.d = \\delta(s, y)$。
+    <img src="https://cdn.jsdelivr.net/gh/lihaoze123/pic/IMG_20240820_173127.jpg" style="zoom:33%;" />
+    2. 由于所有边权都是非负的，所以 $y.d = \\delta(s, y) \\le \\delta(s, u) \\le u.d$。
+    3. 由于在算法的第 $5$ 行中，$u$ 是 $Q = V - S$ 中 $d$ 值最小的结点，所以 $y.d \\ge u.d$，所以 $y.d = \\delta(s, y) = \\delta (s, u) = u.d$。
+    4. 这与第一步的假设矛盾，所以不存在这样的结点 $u$，所以循环不变式成立。
+
+### C++ 实现
+
+\`\`\`cpp
+void dijkstra() {
+    std::priority_queue<std::pair<int, int>, std::vector<std::pair<int, int>>, std::greater<std::pair<int, int>>> q;
+    dist[1] = 0;
+    q.push({0, 1});
+    while (q.size()) {
+        auto [distance, t] = q.top();
+        q.pop();
+        if (st[t]) {
+            continue;
+        }
+        st[t] = true; 
+        for (int i = h[t]; i != -1; i = ne[i]) {
+            int j = e[i];
+            if (distance + w[i] < dist[j]) {
+                dist[j] = distance + w[i];
+                q.push({dist[j], j});
+            }
+        }
+    }
+}
+\`\`\`
+                    `,
+          },
+        ];
+
+        return (
+          <Card title="随笔">
+            <div className="space-y-4">
+              {articles.map((article, index) => (
+                <div key={index} className="border-b pb-4">
+                  <h1 className="text-3xl font-semibold">{article.title}</h1>
+                  <p className="text-sm text-gray-500">{article.date}</p>
+                  <Markdown>{article.content}</Markdown>
+                  <a href="#" className="text-sky-600 hover:underline">
+                    阅读更多
+                  </a>
+                </div>
+              ))}
+            </div>
+          </Card>
+        );
+      }
+
+      function MessageBoard() {
+        const messages = [
+          {
+            name: "李四",
+            content: "博客内容很棒，继续加油！",
+            time: "2025-02-28",
+          },
+          {
+            name: "王五",
+            content: "期待更多技术文章分享~",
+            time: "2025-02-28",
+          },
+        ];
+
+        return (
+          <Card title="留言板">
+            <div className="space-y-4">
+              {messages.map((msg, index) => (
+                <div key={index} className="border-b pb-4">
+                  <div className="flex justify-between">
+                    <span className="font-semibold">{msg.name}</span>
+                    <span className="text-sm text-gray-500">{msg.time}</span>
+                  </div>
+                  <p className="mt-2">{msg.content}</p>
+                </div>
+              ))}
+            </div>
+          </Card>
+        );
+      }
+
+      function Footer() {
+        return (
+          <div className="bg-gray-800 text-white p-4 mt-8">
+            <div className="container mx-auto text-center">
+              <p>© 2025 李昊泽的个人博客. 保留所有权利.</p>
+              <p className="mt-2">
+                <i className="fas fa-envelope mr-2"></i>联系方式:
+                2595248810@qq.com
+              </p>
+              <div className="mt-2 flex justify-center space-x-4">
+                <a href="#" className="hover:text-blue-300">
+                  <i className="fab fa-github mr-1"></i>GitHub
+                </a>
+                <a href="#" className="hover:text-blue-300">
+                  <i className="fab fa-telegram mr-1"></i>Telegram
+                </a>
+              </div>
+            </div>
+          </div>
+        );
+      }
+
+      function Page() {
+        return (
+          <div className="min-h-screen flex flex-col">
+            <Header />
+            <div className="flex-grow">
+              <Introduction />
+              <Article />
+              <MessageBoard />
+            </div>
+            <Footer />
+          </div>
+        );
+      }
+
+      const root = ReactDOM.createRoot(document.getElementById("root"));
+      root.render(<Page />);
+    </script>
+  </body>
+</html>
