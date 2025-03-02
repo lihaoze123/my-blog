@@ -11,11 +11,7 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
     <link
-      href="https://fonts.googleapis.com/css2?family=Lusitana:wght@400;700&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&family=Dancing+Script:wght@400;500;600;700&family=Great+Vibes&family=Meow+Script&display=swap"
       rel="stylesheet"
     />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -25,17 +21,17 @@
         theme: {
           extend: {
             colors: {
-              primary: {
-                50: "#eef2ff",
-                100: "#e0e7ff",
-                200: "#c7d2fe",
-                300: "#a5b4fc",
-                400: "#818cf8",
-                500: "#6366f1",
-                600: "#4f46e5",
-                700: "#4338ca",
-                800: "#3730a3",
-                900: "#312e81",
+              neutral: {
+                50: "#fafafa",
+                100: "#f5f5f5",
+                200: "#e5e5e5",
+                300: "#d4d4d4",
+                400: "#a3a3a3",
+                500: "#737373",
+                600: "#525252",
+                700: "#404040",
+                800: "#262626",
+                900: "#171717",
               },
             },
             animation: {
@@ -45,34 +41,15 @@
         },
       };
     </script>
-    <style>
-      body {
-        font-family: "Nunito", sans-serif;
-      }
-      .gradient-bg {
-        background: linear-gradient(135deg, #4f46e5 0%, #3b82f6 100%);
-      }
-      .card-hover {
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-      }
-      .card-hover:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1),
-          0 10px 10px -5px rgba(0, 0, 0, 0.04);
-      }
-      .shadow-custom {
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-      }
-    </style>
   </head>
   <body class="bg-gray-50">
     <div id="root"></div>
     <script type="text/babel">
       const Card = ({ title, children, className = "" }) => (
         <div
-          className={`container mx-auto my-8 p-6 bg-white rounded-xl shadow-custom card-hover ${className}`}
+          className={`container mx-auto my-8 p-6 bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 ${className}`}
         >
-          <h2 className="text-xl font-bold mb-6 text-primary-700 border-b border-gray-100 pb-3">
+          <h2 className="text-xl font-bold mb-6 text-neutral-800 border-b border-neutral-300 pb-3 select-none">
             {title}
           </h2>
           {children}
@@ -82,10 +59,10 @@
       const IconLink = ({
         icon,
         text,
-        className = "hover:text-primary-500 transition-colors duration-300",
+        className = "hover:text-neutral-600 transition-colors duration-300",
         prefix = "fas",
       }) => (
-        <a href="#" className={className + " flex items-center"}>
+        <a href="#" className={className + " flex items-center select-none"}>
           <i className={`${prefix} fa-${icon} mr-2`}></i>
           {text}
         </a>
@@ -93,12 +70,17 @@
 
       const App = () => (
         <div className="min-h-screen flex flex-col">
-          <header className="gradient-bg text-white p-5 shadow-lg sticky top-0 z-10">
+          <header className="text-neutral-800 p-5 shadow-md sticky top-0 z-10 bg-white select-none">
             <div className="container mx-auto">
               <div className="flex flex-col md:flex-row md:justify-between md:items-center">
                 <h1
-                  className="text-3xl font-bold mb-4 md:mb-0"
-                  style={{ fontFamily: "Lusitana, serif" }}
+                  className="text-4xl font-bold mb-4 md:mb-0"
+                  style={{
+                    fontFamily: "'Meow Script', cursive",
+                    textShadow: "1px 1px 1px rgba(0,0,0,0.1)",
+                    letterSpacing: "1px",
+                    fontSize: "2rem",
+                  }}
                 >
                   Li Haoze's Blog
                 </h1>
@@ -113,7 +95,7 @@
                       key={i}
                       icon={item.icon}
                       text={item.text}
-                      className="hover:text-white/80 transition-all duration-300 font-medium"
+                      className="hover:text-neutral-500 transition-all duration-300 font-medium"
                     />
                   ))}
                 </nav>
@@ -121,50 +103,68 @@
             </div>
           </header>
 
+          <div className="container mx-auto px-4 py-8 text-center">
+            <div className="flex flex-row gap-3 items-start bg-white max-w-2xl mx-auto p-6 rounded-lg shadow-md border border-neutral-200 transform hover:scale-[1.01] transition-all duration-300">
+              <i className="fas fa-quote-left text-neutral-400 text-4xl"></i>
+              <p className="text-xl text-neutral-700 text-center font-medium italic leading-relaxed tracking-wide">
+                一片树林里分出来两条路，而我选择了人迹更少的一条，从此决定了我一生的道路
+              </p>
+              <p className="text-neutral-500 mt-2 text-sm">
+                — 罗伯特·弗罗斯特《未选择的路》
+              </p>
+            </div>
+          </div>
+
           <main className="flex-grow container mx-auto px-4">
             <Card title="个人简介" className="mt-12">
-              <div className="flex flex-col md:flex-row items-center md:items-start">
+              <div className="flex flex-col md:flex-row items-start">
                 <div className="md:w-1/4 mb-6 md:mb-0">
-                  <div className="relative">
+                  <div className="relative select-none">
                     <img
                       src="https://avatars.githubusercontent.com/u/35329574?v=4"
                       alt="头像"
-                      className="w-40 h-40 object-cover rounded-full mx-auto ring-4 ring-primary-100 shadow-lg"
+                      className="w-40 h-40 object-cover rounded-full mx-auto ring-4 ring-neutral-100 shadow-md hover:scale-[1.02] transition-all duration-300 select-none"
                     />
-                    <div className="absolute -bottom-2 -right-2 bg-primary-500 text-white p-2 rounded-full">
-                      <i className="fas fa-code"></i>
-                    </div>
                   </div>
                 </div>
                 <div className="md:w-3/4 md:pl-8">
-                  <div className="bg-gray-50 p-6 rounded-lg border-l-4 border-primary-500">
+                  <div className="bg-neutral-50 p-6 rounded-lg border-l-4 border-neutral-300">
                     <div className="grid grid-cols-1 gap-3">
                       {[
-                        { label: "姓名：", value: "李昊泽" },
-                        { label: "年龄：", value: "18岁" },
-                        { label: "职业：", value: "学生" },
-                        { label: "爱好：", value: "编程、算法" },
+                        { label: "姓名", value: "李昊泽", icon: "user" },
+                        { label: "年龄", value: "18岁", icon: "birthday-cake" },
                         {
-                          label: "个人介绍：",
+                          label: "职业",
+                          value: "学生",
+                          icon: "graduation-cap",
+                        },
+                        { label: "爱好", value: "编程、算法", icon: "code" },
+                        {
+                          label: "介绍",
                           value:
                             "我是一名热爱算法和编程的爱好者，目前在进行 XCPC 算法竞赛的学习，精通C++，熟悉前端技术，喜欢研究新技术，欢迎一起探索！",
+                          icon: "info-circle",
                         },
                       ].map((item, i) => (
                         <div className="flex flex-col sm:flex-row">
-                          <span className="font-bold text-gray-700 sm:w-24 mb-1 sm:mb-0 shrink-0">
+                          <span className="font-bold text-neutral-700 sm:w-24 mb-1 sm:mb-0 shrink-0 flex items-center select-none">
+                            <i
+                              className={`fas fa-${item.icon} mr-2 text-neutral-500`}
+                            ></i>
                             {item.label}
                           </span>
-                          <span className="text-gray-800">{item.value}</span>
+                          <span className="text-neutral-800">{item.value}</span>
                         </div>
                       ))}
                     </div>
                   </div>
+
                   <div className="mt-4 flex flex-wrap gap-2">
                     {["C++", "JavaScript", "React", "HTML/CSS", "算法竞赛"].map(
                       (skill, i) => (
                         <span
                           key={i}
-                          className="px-3 py-1 bg-primary-100 text-primary-800 rounded-full text-sm"
+                          className="px-3 py-1 bg-neutral-200 rounded-full text-sm hover:bg-neutral-300 transition-all duration-300 select-none"
                         >
                           {skill}
                         </span>
@@ -176,20 +176,20 @@
             </Card>
 
             <Card title="随笔">
-              <div className="border-b border-gray-100 pb-6">
-                <h1 className="text-3xl font-semibold text-gray-800">
+              <div className="border-b border-neutral-100 pb-6">
+                <h1 className="text-3xl font-semibold text-neutral-800 select-none">
                   第一篇文章
                 </h1>
-                <div className="flex items-center space-x-2 mt-2 mb-4">
-                  <span className="text-sm text-gray-500 flex items-center">
+                <div className="flex items-center space-x-2 mt-2 mb-4 select-none">
+                  <span className="text-sm text-neutral-500 flex items-center">
                     <i className="far fa-calendar-alt mr-1"></i>
                     2025-02-28
                   </span>
-                  <span className="text-sm text-gray-500 flex items-center">
+                  <span className="text-sm text-neutral-500 flex items-center">
                     <i className="far fa-eye mr-1"></i>
                     128 阅读
                   </span>
-                  <span className="text-sm text-gray-500 flex items-center">
+                  <span className="text-sm text-neutral-500 flex items-center">
                     <i className="far fa-comment mr-1"></i>8 评论
                   </span>
                 </div>
@@ -197,9 +197,9 @@
                   <img
                     src="https://picsum.photos/800/400"
                     alt="图片"
-                    className="w-full h-72 object-cover rounded-lg shadow-md my-6"
+                    className="w-full h-72 object-cover rounded-lg shadow-md my-6 hover:scale-[1.01] transition-all duration-300 select-none"
                   />
-                  <p className="text-gray-700 leading-relaxed">
+                  <p className="text-neutral-700 leading-relaxed">
                     Lorem, ipsum dolor sit amet consectetur adipisicing elit.
                     Commodi voluptates at neque, aut enim exercitationem
                     necessitatibus odio porro doloribus, facere magnam obcaecati
@@ -218,7 +218,7 @@
                 </div>
                 <a
                   href="#"
-                  className="inline-block mt-4 px-6 py-2 bg-primary-500 text-white rounded-full transition-all hover:bg-primary-600 hover:shadow-md"
+                  className="inline-block mt-4 px-6 py-2 bg-neutral-800 text-white rounded-full transition-all hover:bg-neutral-700 hover:shadow-md select-none"
                 >
                   阅读更多
                 </a>
@@ -226,14 +226,14 @@
             </Card>
 
             <Card title="留言板">
-              <div className="bg-gray-50 p-6 rounded-lg mb-8">
+              <div className="bg-neutral-50 p-6 rounded-lg mb-8">
                 <textarea
-                  className="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all"
+                  className="w-full p-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-neutral-400 focus:border-neutral-400 outline-none transition-all"
                   rows="3"
                   placeholder="留下你的评论..."
                 ></textarea>
                 <div className="flex justify-end mt-3">
-                  <button className="px-6 py-2 bg-primary-500 text-white rounded-lg hover:bg-primary-600 transition-colors">
+                  <button className="px-6 py-2 bg-neutral-800 text-white rounded-lg hover:bg-neutral-700 transition-colors select-none">
                     发表评论
                   </button>
                 </div>
@@ -253,33 +253,33 @@
                     avatar: "https://i.pravatar.cc/150?img=12",
                   },
                 ].map((msg, i) => (
-                  <div key={i} className="border-b border-gray-100 pb-6">
+                  <div key={i} className="border-b border-neutral-100 pb-6">
                     <div className="flex items-start">
                       <img
                         src={msg.avatar}
                         alt={msg.name}
-                        className="w-10 h-10 rounded-full mr-4"
+                        className="w-10 h-10 rounded-full mr-4 select-none ring-2 ring-neutral-100 shadow-md hover:scale-[1.03] transition-all duration-300"
                       />
                       <div className="flex-1">
                         <div className="flex justify-between items-center">
-                          <span className="font-semibold text-gray-800">
+                          <span className="font-semibold text-neutral-800 select-none">
                             {msg.name}
                           </span>
-                          <span className="text-sm text-gray-500">
+                          <span className="text-sm text-neutral-500 select-none">
                             {msg.time}
                           </span>
                         </div>
-                        <p className="mt-2 text-gray-700">{msg.content}</p>
-                        <div className="mt-3 flex space-x-4">
+                        <p className="mt-2 text-neutral-700">{msg.content}</p>
+                        <div className="mt-3 flex space-x-4 select-none">
                           <a
                             href="#"
-                            className="text-gray-500 hover:text-primary-500 text-sm flex items-center"
+                            className="text-neutral-500 hover:text-neutral-700 text-sm flex items-center"
                           >
                             <i className="far fa-thumbs-up mr-1"></i> 点赞
                           </a>
                           <a
                             href="#"
-                            className="text-gray-500 hover:text-primary-500 text-sm flex items-center"
+                            className="text-neutral-500 hover:text-neutral-700 text-sm flex items-center"
                           >
                             <i className="far fa-comment mr-1"></i> 回复
                           </a>
@@ -292,27 +292,27 @@
             </Card>
           </main>
 
-          <footer className="bg-gray-900 text-white p-8 mt-12">
+          <footer className="bg-neutral-100 text-neutral-800 p-8 mt-12 select-none">
             <div className="container mx-auto">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
                 <div>
-                  <h3 className="text-xl font-bold mb-4 border-b border-gray-700 pb-2">
+                  <h3 className="text-xl font-bold mb-4 border-b border-neutral-200 pb-2">
                     关于博客
                   </h3>
-                  <p className="text-gray-300">
+                  <p className="text-neutral-600">
                     Lorem ipsum dolor sit amet consectetur adipisicing elit.
                     Quisquam, quos.
                   </p>
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold mb-4 border-b border-gray-700 pb-2">
+                  <h3 className="text-xl font-bold mb-4 border-b border-neutral-200 pb-2">
                     联系方式
                   </h3>
                   {[
                     { icon: "envelope", text: "2595248810@qq.com" },
                     { icon: "map-marker-alt", text: "中国" },
                   ].map((item, i) => (
-                    <p className="text-gray-300 flex items-center mb-2">
+                    <p className="text-neutral-600 flex items-center mb-2">
                       <i
                         className={`${item.prefix} fas fa-${item.icon} mr-3`}
                       ></i>
@@ -321,7 +321,7 @@
                   ))}
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold mb-4 border-b border-gray-700 pb-2">
+                  <h3 className="text-xl font-bold mb-4 border-b border-neutral-200 pb-2">
                     快速链接
                   </h3>
                   <ul className="space-y-2">
@@ -329,7 +329,7 @@
                       <li key={i}>
                         <a
                           href="#"
-                          className="text-gray-300 hover:text-white transition-colors"
+                          className="text-neutral-600 hover:text-neutral-800 transition-colors"
                         >
                           {item}
                         </a>
@@ -338,8 +338,8 @@
                   </ul>
                 </div>
               </div>
-              <div className="border-t border-gray-800 pt-6 flex flex-col md:flex-row justify-between items-center">
-                <p className="text-gray-400">
+              <div className="border-t border-neutral-200 pt-6 flex flex-col md:flex-row justify-between items-center">
+                <p className="text-neutral-500">
                   © 2025 李昊泽的个人博客. 保留所有权利.
                 </p>
                 <div className="flex space-x-6 mt-4 md:mt-0">
@@ -351,7 +351,7 @@
                     <a
                       key={i}
                       href="#"
-                      className="text-gray-400 hover:text-white transition-colors"
+                      className="text-neutral-500 hover:text-neutral-800 transition-colors"
                     >
                       <i
                         className={`${item.prefix} fa-${item.icon} text-xl`}
@@ -365,7 +365,11 @@
         </div>
       );
 
-      ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+      ReactDOM.createRoot(document.getElementById("root")).render(
+        <React.StrictMode>
+          <App />
+        </React.StrictMode>
+      );
     </script>
   </body>
 </html>
