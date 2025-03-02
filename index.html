@@ -176,53 +176,62 @@
             </Card>
 
             <Card title="随笔">
-              <div className="border-b border-neutral-100 pb-6">
-                <h1 className="text-3xl font-semibold text-neutral-800 select-none">
-                  第一篇文章
-                </h1>
-                <div className="flex items-center space-x-2 mt-2 mb-4 select-none">
-                  <span className="text-sm text-neutral-500 flex items-center">
-                    <i className="far fa-calendar-alt mr-1"></i>
-                    2025-02-28
-                  </span>
-                  <span className="text-sm text-neutral-500 flex items-center">
-                    <i className="far fa-eye mr-1"></i>
-                    128 阅读
-                  </span>
-                  <span className="text-sm text-neutral-500 flex items-center">
-                    <i className="far fa-comment mr-1"></i>8 评论
-                  </span>
+              {[
+                {
+                  title: "《42 号混凝土》",
+                  date: "1970-01-01",
+                  read: Math.floor(Math.random() * 100),
+                  comment: Math.floor(Math.random() * 100),
+                  content: `我不敢苟同他的观点，我个人认为这个意大利面就应该拌42号混凝土，因为这个螺丝钉的长度，它很容易会直接影响到挖掘机的扭矩，你知道吧?你往里砸的时候，一瞬间它就会产生大量的高能蛋白，俗称UFO，会严重影响经济的发展，甚至对这个太平洋以及充电器都会造成一定的核污染。
+                    支持，虽然三角函数证实了水的张力，但是鸡蛋发霉后的乳酸菌会促使心脑血管的收缩，导致地球气温升高造成热胀冷缩效应，同时会影响拉格朗日点的吸收，促使喜羊羊超进化。
+                    我倒是不这么认为，位于北极圈的摩尔曼斯克港终年不冻的原因是因为北大西洋暖流而非是拌意大利面用的42号混凝土遇水发热，因此我认为在G港旁边的厕所里面使用奥特曼变身棒可以使人类探索月球背面。`,
+                  image: `https://picsum.photos/seed/${Math.floor(Math.random() * 1000000)}/800/400`,
+                },
+                {
+                  title: "《你有这么高速运转的机器进入中国》",
+                  date: "1970-01-01",
+                  read: Math.floor(Math.random() * 100),
+                  comment: Math.floor(Math.random() * 100),
+                  content: `你有这么高速运转的机器进入中国记住我给出的原理小的时候，就是研发人研发这个东西的管理是阴间政权管黄龙江一派全部带蓝牙，黄龙江我告诉你在阴间是那个化名， 化名我小舅，亲小舅， 张学兰的那个嫡子、嫡孙。`,
+                  image: `https://picsum.photos/seed/${Math.floor(Math.random() * 1000000)}/800/400`,
+                },
+              ].map((item, i) => (
+                <div className="border-b border-neutral-200 pb-6 mb-6 last:border-b-0">
+                  <h1 className="text-3xl font-semibold text-neutral-800 select-none">
+                    {item.title}
+                  </h1>
+                  <div className="flex items-center space-x-2 mt-2 mb-4 select-none">
+                    <span className="text-sm text-neutral-500 flex items-center">
+                      <i className="far fa-calendar-alt mr-1"></i>
+                      {item.date}
+                    </span>
+                    <span className="text-sm text-neutral-500 flex items-center">
+                      <i className="far fa-eye mr-1"></i>
+                      {item.read} 阅读
+                    </span>
+                    <span className="text-sm text-neutral-500 flex items-center">
+                      <i className="far fa-comment mr-1"></i>
+                      {item.comment} 评论
+                    </span>
+                  </div>
+                  <div className="prose max-w-none">
+                    <img
+                      src={item.image}
+                      alt="图片"
+                      className="w-full h-72 object-cover rounded-lg shadow-md my-6 hover:scale-[1.01] transition-all duration-300 select-none"
+                    />
+                    <p className="text-neutral-700 leading-relaxed">
+                      {item.content}
+                    </p>
+                  </div>
+                  <a
+                    href="#"
+                    className="inline-block mt-4 px-6 py-2 bg-neutral-800 text-white rounded-full transition-all hover:bg-neutral-700 hover:shadow-md select-none"
+                  >
+                    阅读更多
+                  </a>
                 </div>
-                <div className="prose max-w-none">
-                  <img
-                    src="https://picsum.photos/800/400"
-                    alt="图片"
-                    className="w-full h-72 object-cover rounded-lg shadow-md my-6 hover:scale-[1.01] transition-all duration-300 select-none"
-                  />
-                  <p className="text-neutral-700 leading-relaxed">
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                    Commodi voluptates at neque, aut enim exercitationem
-                    necessitatibus odio porro doloribus, facere magnam obcaecati
-                    a beatae dolores iste tempore doloremque ducimus
-                    accusantium! In ipsum error dolorem. Consectetur, id.
-                    Repellendus porro sapiente nulla consectetur. Aspernatur
-                    natus officiis consectetur omnis sit eum impedit. Natus,
-                    tempore tenetur, minus, consequatur alias quos blanditiis
-                    beatae aliquam doloribus incidunt laboriosam? Aliquam
-                    corrupti quos dignissimos repellendus nostrum amet, iusto
-                    harum ut sequi iure beatae labore animi explicabo fugit
-                    dicta similique hic porro provident enim! Odit doloribus
-                    laudantium rerum maiores possimus modi minus deserunt esse!
-                    Ex quo optio quasi labore.
-                  </p>
-                </div>
-                <a
-                  href="#"
-                  className="inline-block mt-4 px-6 py-2 bg-neutral-800 text-white rounded-full transition-all hover:bg-neutral-700 hover:shadow-md select-none"
-                >
-                  阅读更多
-                </a>
-              </div>
+              ))}
             </Card>
 
             <Card title="留言板">
@@ -253,7 +262,10 @@
                     avatar: "https://i.pravatar.cc/150?img=12",
                   },
                 ].map((msg, i) => (
-                  <div key={i} className="border-b border-neutral-100 pb-6">
+                  <div
+                    key={i}
+                    className="border-b border-neutral-200 last:border-b-0 pb-6"
+                  >
                     <div className="flex items-start">
                       <img
                         src={msg.avatar}
